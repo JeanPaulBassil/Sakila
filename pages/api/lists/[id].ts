@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../data/sakila";
+import db from "../../../data/sakila";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "POST") {
+  if (req.method === "DELETE") {
     try {
       const id = req.query.id;
       console.log("LOG: " + req.query);

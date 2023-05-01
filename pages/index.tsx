@@ -54,7 +54,7 @@ const Home: React.FC = () => {
     const isClickable = film.title !== '...';
     return (
       <li key={index}>
-        <button disabled={!isClickable} onClick={() => {
+        <button disabled={!isClickable} className={!isClickable ? Styles.disabled : Styles.enabled} onClick={() => {
           if (isClickable) {
             handleClick(film);
           }

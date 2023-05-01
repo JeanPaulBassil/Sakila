@@ -28,7 +28,7 @@ const Index: React.FC<FilmProps> = ({ film }) => {
   const handleDeleteClick = async () => {
     console.log(film.id)
     try {
-        const response = await axios.delete(`${process.env.API_URL}/api/updateList/${film.id}`);
+        const response = await axios.delete(`${process.env.API_URL}/api/lists/${film.id}`);
 
         if (response.status === 200) {
             alert('List deleted successfully!');
