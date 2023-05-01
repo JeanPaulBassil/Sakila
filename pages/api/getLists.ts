@@ -1,26 +1,39 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Pool } from "pg";
+import db from "../../data/sakila";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
-interface FilmList {
+// interface for my lists containing a title, member, and date (in date)
+interface List {
+  id: number;
   title: string;
-  name: string;
-  release_year: string;
+  member: string;
+  date: Date;
 }
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse<FilmList[] | {error: string}>) {
-//     if (req.method === 'GET'){
-//         try {
-//             const result = await pool.query('SELECT * FROM favorites ORDER BY id DESC LIMIT 5');
-//             const favorites : FilmList[] = result.rows.map((row) => {
-//                 title: row.title,
-//                 name: row.member,
-//             })
-//         } catch (error){
-//             res.status(500).json({error: error.message})
-//         }
-//     }
-// }
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === "GET") {
+    try {
+      const queryResult = await db.query<List>(
+        `SELECT * FROM favorites LIMIT 5`
+      );
+      const result = queryResult.rows.map((row: List) => {
+        return {
+          id: row.id,
+          title: row.title,
+          member: row.member,
+          date: row.date,
+        };
+      });
+
+      return res.status(200).json(result);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error connecting to the database", error: error });
+    }
+  } else {
+    return res.status(405).json({ message: "Method not allowed" });
+  }
+}

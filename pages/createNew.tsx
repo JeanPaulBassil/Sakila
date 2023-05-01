@@ -8,6 +8,7 @@ const CreateNew: React.FC = () => {
   const [title, setTitle] = useState("");
   const [member, setMember] = useState("");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [id, setId] = useState(Math.floor(performance.now()));
   const router = useRouter();
 
   const submit = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -18,6 +19,7 @@ const CreateNew: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.API_URL}/api/saveList`, {
+        id,
         title,
         member,
         date,

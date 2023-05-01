@@ -8,43 +8,59 @@ import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] });
 
-interface Film {
-  name: string;
-  author: string;
+interface FilmList {
+  id: number;
+  title: string;
+  member: string;
+  date: Date;
 }
 
 const Home: React.FC = () => {
+
   const router = useRouter();
 
-  const [favorites, setFavorites] = useState<Film[]>([]);
+  const [favorites, setFavorites] = useState<FilmList[]>([]);
 
-  useEffect(() => {
+  useEffect(():void => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(`${process.env.API_URL}/api/getLists`);
-        const fetchedFavorites: Film[] = response.data;
+        const data: FilmList[] = response.data.map((film: FilmList) => ({
+          ...film,
+          date: new Date(film.date),
+        }));
 
-        const paddedFavorites = [
-          ...fetchedFavorites,
-          ...Array.from({ length: 5 - fetchedFavorites.length }).map(() => ({
-            name: '...',
-            author: '...',
-          })),
-        ];
-        setFavorites(paddedFavorites);
+        while (data.length < 5) {
+          data.push({ id: Math.floor(performance.now()), title: '...', member: '', date: new Date() });
+        }
+
+        setFavorites(data);
       } catch (error) {
-        console.error('Failed to fetch favorites:', error);
+        console.error('Error fetching favorites', error);
       }
-    };
-    fetchFavorites(); 
+    }
+
+    fetchFavorites();
   }, []);
 
+  const handleClick = (film: FilmList) => {
+    router.push({
+      pathname: `/${film.id}`,
+      query: { id: film.id },
+    });
+  };
+
   const favoriteElements = favorites.map((film, index) => {
-    const isClickable = film.name !== '...';
+    const isClickable = film.title !== '...';
     return (
       <li key={index}>
-        <button disabled={!isClickable}>
-          {film.name} - {film.author}
+        <button disabled={!isClickable} onClick={() => {
+          if (isClickable) {
+            handleClick(film);
+          }
+        }}
+        >
+          {film.title} - {film.member}
         </button>
       </li>
     );
