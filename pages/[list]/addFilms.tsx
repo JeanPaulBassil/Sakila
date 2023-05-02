@@ -90,6 +90,7 @@ const AddFilms: React.FC<FilmProps> = ({ film }) => {
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     setShowDropdown(false);
+    router.push('/')
   };
 
   

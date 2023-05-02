@@ -75,11 +75,11 @@ const Films: React.FC<FilmProps> = ({ filmList }) => {
         const minutes = selectedFilm.duration % 60;
 
         return (
-            <>
+            <div className={Styles.detailsWrapper}>
             <p>{selectedFilm.title} details</p>
             <p>Actors: {selectedFilm.actors.join(', ')}</p>
             <p>Duration: {hours}h{minutes}</p>
-            </>
+            </div>
         );
     };
 
