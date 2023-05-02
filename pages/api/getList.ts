@@ -11,6 +11,7 @@ export default async function handler(
       const filmList = await db.query(
         `SELECT * FROM favorites WHERE id = ${id}`
       );
+      console.log(filmList.rows[0]);
       return res.status(200).json(filmList.rows[0]);
     } catch (error) {
       console.error("Error fetching film", error);

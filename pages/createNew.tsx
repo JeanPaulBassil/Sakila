@@ -61,7 +61,10 @@ const CreateNew: React.FC = () => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
         />
       </div>
-      <button onClick={submit}>Create</button>
+      <div className={Styles.buttons}>
+        <button onClick={submit}>Create</button>
+        <button onClick={() => router.push("/")}><p>Home</p></button>
+      </div>
     </main>
   );
 };

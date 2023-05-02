@@ -15,9 +15,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const queryResult = await db.query<List>(
-        `SELECT * FROM favorites LIMIT 5`
-      );
+      const queryResult = await db.query<List>(`SELECT * FROM favorites`);
       const result = queryResult.rows.map((row: List) => {
         return {
           id: row.id,

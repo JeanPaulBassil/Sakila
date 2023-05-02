@@ -22,8 +22,8 @@ const Index: React.FC<FilmProps> = ({ film }) => {
     const [familyMember, setFamilyMember] = useState(film.member);
     const [creationDate, setCreationDate] = useState(
     film.date ? new Date(film.date).toISOString().split('T')[0] : ''
-  );
-  const router = useRouter();
+    );
+    const router = useRouter();
   
   const handleDeleteClick = async () => {
     console.log(film.id)
@@ -90,9 +90,17 @@ const Index: React.FC<FilmProps> = ({ film }) => {
             />
         </div>
         <div>
+            <button onClick={() => router.push("/")}><p>Home</p></button>
             <button onClick={handleUpdateClick}><p>Update</p></button>
             <button onClick={handleDeleteClick}><p>Delete List</p></button>
-            <button><p>Show Films</p></button>
+            <button onClick={() => router.push({
+              pathname: `/${film.id}/films`, 
+              query: { 
+              film: JSON.stringify(film) 
+              } 
+              })}>
+                <p>Show Films</p>
+            </button>
         </div>
     </div>
   );
