@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { MouseEvent, useEffect, useState } from 'react';
 import React from 'react';
 import axios from 'axios';
+import Global from '../styles/globals.module.sass';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -82,7 +83,7 @@ const Home: React.FC = () => {
       <main className={Styles.container}>
         <h1>Favorite Films List</h1>
         <div className={Styles.home}>
-          <button className={Styles.new} onClick={handleCreateNewClick}>
+          <button className={Global.darkBtn} onClick={handleCreateNewClick}>
             <p>Create New</p>
           </button>
 

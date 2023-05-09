@@ -3,6 +3,7 @@ import Styles from "../styles/createNew.module.sass";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Global from "../styles/globals.module.sass";
 
 const CreateNew: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -33,37 +34,39 @@ const CreateNew: React.FC = () => {
   };
   return (
     <main className={Styles.container}>
+      <div className={Styles.form}>
       <h1>Create Favorite Films List</h1>
-      <div>
-        <p>List Title</p>
+      <div className={Styles.field}>
         <input
           placeholder='Title'
           type="text"
           value={title}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+          className={Styles.input_field}
         />
       </div>
-      <div>
-        <p>Family Member</p>
+      <div className={Styles.field}>
         <input
-          placeholder='Name'
+          placeholder='Family Member'
           type="text"
           value={member}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setMember(e.target.value)}
+          className={Styles.input_field}
         />
       </div>
-      <div>
-        <p>Creation Date</p>
+      <div className={Styles.field}>
         <input
           placeholder="Date"
           type="date"
           value={date}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
+          className={Styles.input_field}
         />
       </div>
-      <div className={Styles.buttons}>
-        <button onClick={submit}>Create</button>
-        <button onClick={() => router.push("/")}><p>Home</p></button>
+      <div className={Styles.btn}>
+        <button onClick={submit} className={Styles.button1}>Create</button>
+        <button onClick={() => router.push("/")}className={Styles.button2}><p>Home</p></button>
+      </div>
       </div>
     </main>
   );

@@ -60,48 +60,51 @@ const Index: React.FC<FilmProps> = ({ film }) => {
   };
   return (
     <div className={Styles.container}>
-        <h1>Update Favorite Films List</h1>
-        <div>
-            <p>List Title</p>
-            <input
-            placeholder="List Title"
-            type="text"
-            value={listTitle}
-            onChange={(e) => setListTitle(e.target.value)}
-            />
-        </div>
-        <div>
-            <p>Family Member</p>
-
-            <input
-            placeholder="Family Member"
-            type="text"
-            value={familyMember}
-            onChange={(e) => setFamilyMember(e.target.value)}
-            />
-        </div>
-        <div>
-            <p>Creation Date</p>
-            <input
-            placeholder="List Title"
-            type="date"
-            value={creationDate}
-            onChange={(e) => setCreationDate(e.target.value)}
-            />
-        </div>
-        <div>
-            <button onClick={() => router.push("/")}><p>Home</p></button>
-            <button onClick={handleUpdateClick}><p>Update</p></button>
-            <button onClick={handleDeleteClick}><p>Delete List</p></button>
-            <button onClick={() => router.push({
-              pathname: `/${film.id}/films`, 
-              query: { 
-              film: JSON.stringify(film) 
-              } 
-              })}>
-                <p>Show Films</p>
-            </button>
-        </div>
+      <div className={Styles.form}>
+          <h1>Update Favorite Films List</h1>
+          <div className={Styles.field}>
+              <input
+              placeholder="List Title"
+              type="text"
+              value={listTitle}
+              onChange={(e) => setListTitle(e.target.value)}
+              className={Styles.input_field}
+              />
+          </div>
+          <div className={Styles.field}>
+              <input
+              placeholder="Family Member"
+              type="text"
+              value={familyMember}
+              onChange={(e) => setFamilyMember(e.target.value)}
+              className={Styles.input_field}
+              />
+          </div>
+          <div className={Styles.field}>
+              <input
+              placeholder="List Title"
+              type="date"
+              value={creationDate}
+              onChange={(e) => setCreationDate(e.target.value)}
+              className={Styles.input_field}
+              />
+          </div>
+          <div className={Styles.btn}>
+              <button onClick={() => router.push("/")} className={Styles.button1}><p>Home</p></button>
+              <button onClick={handleUpdateClick} className={Styles.button1}><p>Update</p></button>
+            <button onClick={handleDeleteClick} className={Styles.button2}><p>Delete List</p></button>
+            </div>
+              <button onClick={() => router.push({
+                pathname: `/${film.id}/films`, 
+                query: { 
+                film: JSON.stringify(film) 
+                } 
+                })}
+                className={Styles.button3}>
+                  <p>Show Films</p>
+              </button>
+          
+      </div>
     </div>
   );
 };
