@@ -3,6 +3,7 @@ import axios from 'axios';
 import Styles from '../../styles/films.module.sass'
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import Globals from '../../styles/globals.module.sass';
 
 interface FilmList {
     id: number;
@@ -75,36 +76,46 @@ const Films: React.FC<FilmProps> = ({ filmList }) => {
         const minutes = selectedFilm.duration % 60;
 
         return (
-            <div className={Styles.detailsWrapper}>
-            <p>{selectedFilm.title} details</p>
-            <p>Actors: {selectedFilm.actors.join(', ')}</p>
-            <p>Duration: {hours}h{minutes}</p>
+          <div className={Styles.card}>
+            <div className={Styles.circle}></div>
+            <div className={Styles.circle}></div>
+            <div className={Styles.cardInner}>
+              <p>{selectedFilm.title} details</p>
+              <p>Actors: {selectedFilm.actors.join(', ')}...</p>
+              <p>Duration: {hours}h{minutes}</p>
             </div>
+          </div>
         );
     };
 
     const buttons = films.slice(0, 5).map((film) => (
-        <Button key={film.title} film={film} onClick={() => handleClick(film)} />
+        
+        <button className={Styles.lsBtn} key={film.title}  onClick={() => handleClick(film)} >{film.title}</button>
+        
     ));
 
     while (buttons.length < 5) {
-        buttons.push(<Button key={buttons.length} film={null} onClick={() => {}} />);
+        buttons.push(
+          <button key={buttons.length} className={Styles.disabled} onClick={() => {}} >...</button>
+        );
     }
 
     return (
         <div className={Styles.container}>
-          <h1>films of favorite list: {filmList.title} - {filmList.member}</h1>
-          <div className={Styles.films}>
-            <div className={Styles.filmButtonsContainer}>
-              {buttons}
+          <div className={Styles.home}>
+            <h1>films of favorite list: {filmList.title} - {filmList.member}</h1>
+            <div className={Styles.films}>
+              <ul className={Styles.filmButtonsContainer}>
+                {buttons}
+              </ul>
+              <div className={Styles.filmDetailsContainer}>
+                {renderDetails()}
+              </div>
             </div>
-            <div className={Styles.filmDetailsContainer}>
-              {renderDetails()}
+            <div className={Styles.buttons}>
+              <button onClick={() => router.push('/')} className={Globals.darkBtn}><p>Close</p></button>
+              <button onClick={handleAddFilms} className={Globals.darkBtn}><p>Add Films</p></button>
             </div>
-          </div>
-          <div className={Styles.buttons}>
-            <button onClick={() => router.push('/')}><p>Close</p></button>
-            <button onClick={handleAddFilms}><p>Add Films</p></button>
           </div>
         </div>
     );
